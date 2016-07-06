@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "TicTacTech", "TicTacTech\TicTacTech.sfproj", "{A193542F-EF60-49B8-9484-1DBD7B3A677E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacTechActors", "TicTacTechActors\TicTacTechActors.csproj", "{38007152-283F-469A-9CED-9281B8B69C92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacTechActors.Interfaces", "TicTacTechActors.Interfaces\TicTacTechActors.Interfaces.csproj", "{E99B3FC7-6811-47CF-BA49-4DB6F51BA3A0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TicTacTech.Domain", "TicTacTech.Domain\TicTacTech.Domain.fsproj", "{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacTechApi", "TicTacTechApi\TicTacTechApi.csproj", "{A6DB7B0F-07F5-4FA4-BC46-A10B08657913}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Debug|x64.ActiveCfg = Debug|x64
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Debug|x64.Build.0 = Debug|x64
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Debug|x64.Deploy.0 = Debug|x64
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Release|Any CPU.ActiveCfg = Release|x64
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Release|x64.ActiveCfg = Release|x64
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Release|x64.Build.0 = Release|x64
+		{A193542F-EF60-49B8-9484-1DBD7B3A677E}.Release|x64.Deploy.0 = Release|x64
+		{38007152-283F-469A-9CED-9281B8B69C92}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{38007152-283F-469A-9CED-9281B8B69C92}.Debug|x64.ActiveCfg = Debug|x64
+		{38007152-283F-469A-9CED-9281B8B69C92}.Debug|x64.Build.0 = Debug|x64
+		{38007152-283F-469A-9CED-9281B8B69C92}.Release|Any CPU.ActiveCfg = Release|x64
+		{38007152-283F-469A-9CED-9281B8B69C92}.Release|x64.ActiveCfg = Release|x64
+		{38007152-283F-469A-9CED-9281B8B69C92}.Release|x64.Build.0 = Release|x64
+		{E99B3FC7-6811-47CF-BA49-4DB6F51BA3A0}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{E99B3FC7-6811-47CF-BA49-4DB6F51BA3A0}.Debug|x64.ActiveCfg = Debug|x64
+		{E99B3FC7-6811-47CF-BA49-4DB6F51BA3A0}.Debug|x64.Build.0 = Debug|x64
+		{E99B3FC7-6811-47CF-BA49-4DB6F51BA3A0}.Release|Any CPU.ActiveCfg = Release|x64
+		{E99B3FC7-6811-47CF-BA49-4DB6F51BA3A0}.Release|x64.ActiveCfg = Release|x64
+		{E99B3FC7-6811-47CF-BA49-4DB6F51BA3A0}.Release|x64.Build.0 = Release|x64
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Debug|x64.Build.0 = Debug|Any CPU
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Release|x64.ActiveCfg = Release|Any CPU
+		{D2E9A52A-10DA-4AAD-9D99-FC37382FBC1F}.Release|x64.Build.0 = Release|Any CPU
+		{A6DB7B0F-07F5-4FA4-BC46-A10B08657913}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{A6DB7B0F-07F5-4FA4-BC46-A10B08657913}.Debug|x64.ActiveCfg = Debug|x64
+		{A6DB7B0F-07F5-4FA4-BC46-A10B08657913}.Debug|x64.Build.0 = Debug|x64
+		{A6DB7B0F-07F5-4FA4-BC46-A10B08657913}.Release|Any CPU.ActiveCfg = Release|x64
+		{A6DB7B0F-07F5-4FA4-BC46-A10B08657913}.Release|x64.ActiveCfg = Release|x64
+		{A6DB7B0F-07F5-4FA4-BC46-A10B08657913}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
