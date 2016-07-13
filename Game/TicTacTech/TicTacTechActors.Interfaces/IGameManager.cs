@@ -1,10 +1,9 @@
-﻿using Microsoft.ServiceFabric.Actors;
-using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Services.Remoting;
+﻿using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Actors;
 
 namespace TicTacTechActors.Interfaces
 {
-    public interface IGameManager : IActor, IService      
+    public interface IGameManager : IActor      
     {
         Task LetMePlay(IPlayer player);
     }

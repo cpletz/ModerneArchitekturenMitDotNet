@@ -20,7 +20,7 @@ export class GamerRegister {
     const json = JSON.stringify(data);
 
     const http = new HttpClient();
-    let request = http.createRequest('http://localhost:60572/api/player')
+    let request = http.createRequest('http://tictactechplayer.azurewebsites.net/api/player')
       .asPost()
       .withContent(data);
 

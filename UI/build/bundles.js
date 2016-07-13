@@ -18,6 +18,7 @@ module.exports = {
         "aurelia-framework",
         "aurelia-bootstrapper",
         "aurelia-fetch-client",
+        "aurelia-http-client",
         "aurelia-router",
         "aurelia-animator-css",
         "aurelia-templating-binding",
@@ -30,7 +31,8 @@ module.exports = {
         "bootstrap",
         "bootstrap/css/bootstrap.css!text",
         "fetch",
-        "jquery"
+        "jquery",
+        "ms-signalr-client"
       ],
       "options": {
         "inject": true,

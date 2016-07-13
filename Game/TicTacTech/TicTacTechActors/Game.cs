@@ -73,6 +73,8 @@ namespace TicTacTechActors
             }
 
             State.GameState = serialize(newGameState);
+            SaveState();
+
             var otherPlayer = Player.FromId(isPlayerX ? State.PlayerO : State.PlayerX);
 
             await Task.WhenAll(
@@ -88,10 +90,13 @@ namespace TicTacTechActors
             State.PlayerO = Player.GetId(playerO);
             State.GameState = serialize(startGame());
 
+            SaveState();
+
             await Task.WhenAll(
                 playerX.EnterGame(this, playerO, "X"),
-                playerO.EnterGame(this, playerX, "O"),
-                RegisterReminderAsync("GameTimeout", null, TimeSpan.FromSeconds(15), TimeSpan.MaxValue));
+                playerO.EnterGame(this, playerX, "O") //,
+                //RegisterReminderAsync("GameTimeout", null, TimeSpan.FromSeconds(15), TimeSpan.FromMilliseconds(-1))
+                );
 
             playerX.GameStateChanged(State.GameState.board, PlayerGameStatus.MoveRequired);
         }

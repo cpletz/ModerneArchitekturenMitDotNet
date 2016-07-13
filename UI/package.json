@@ -66,7 +66,6 @@
   },
   "jspm": {
     "dependencies": {
-      "Azure/azure-documentdb-js": "github:Azure/azure-documentdb-js@master",
       "aurelia-animator-css": "npm:aurelia-animator-css@^1.0.0-rc.1.0.0",
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0-rc.1.0.0",
       "aurelia-fetch-client": "npm:aurelia-fetch-client@^1.0.0-rc.1.0.0",
@@ -84,6 +83,8 @@
       "bootstrap": "github:twbs/bootstrap@^3.3.6",
       "fetch": "github:github/fetch@^1.0.0",
       "font-awesome": "npm:font-awesome@4.6.3",
+      "jquery": "npm:jquery@2.2.4",
+      "ms-signalr-client": "npm:ms-signalr-client@^2.2.3",
       "text": "github:systemjs/plugin-text@^0.0.8"
     },
     "devDependencies": {}

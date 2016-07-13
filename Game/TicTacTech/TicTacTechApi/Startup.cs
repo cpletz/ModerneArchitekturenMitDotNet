@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Microsoft.AspNet.SignalR;
 using Owin;
 
 namespace TicTacTechApi
@@ -11,6 +12,17 @@ namespace TicTacTechApi
         {
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
+
+            var hubConfig = new HubConfiguration();
+            hubConfig.EnableJSONP = true;
+            appBuilder.MapSignalR(hubConfig);
+
+            //appBuilder.UseCors(CorsOptions.AllowAll);
+            //appBuilder.MapSignalR();
+
+            //appBuilder.MapSignalR();
+
+            config.EnableCors();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

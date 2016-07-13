@@ -1,0 +1,57 @@
+<template>
+  <require from="game.css"></require>
+  <section class="au-animate">
+    <h3>Let's play ...</h3>
+    <form class="form-horizontal" role="form" submit.trigger="submit()">
+
+      <div class="form-group">
+        <div class="col-xs-offset-1 col-xs-11">
+          <button type="submit" class="btn btn-primary">I want to play</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="id" class="col-xs-1 control-label">You</label>
+        <div class="col-xs-2">
+          <input type="text" value.bind="playerId" class="form-control" id="id" placeholder="identifier">
+        </div>
+        <div class="col-xs-1">
+          <i class="fa fa-${myRoleIcon} fa-2x"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="other" class="col-xs-1 control-label">Other</label>
+        <div class="col-xs-2">
+          <input type="text" value.bind="otherPlayer" class="form-control" readonly="readonly" id="other" >
+        </div>
+        <div class="col-xs-1">
+          <i class="fa fa-${otherRoleIcon} fa-2x"></i>
+        </div>
+      </div>
+    </form>
+  </section>
+  <section>
+    <h3>${message}</h3>
+  </section>
+  <section>
+    <!--<div class="container">-->
+    <div class="row gutter-10">
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[0])}" click.trigger="cellClicked(0)"><i class="${getCellImageClass(cells[0])}"></i></button></div>
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[1])}" click.trigger="cellClicked(1)"><i class="${getCellImageClass(cells[1])}"></i></button></div>
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[2])}" click.trigger="cellClicked(2)"><i class="${getCellImageClass(cells[2])}"></i></button></div>
+    </div>
+    <div class="row gutter-10">
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[3])}" click.trigger="cellClicked(3)"><i class="${getCellImageClass(cells[3])}"></i></button></div>
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[4])}" click.trigger="cellClicked(4)"><i class="${getCellImageClass(cells[4])}"></i></button></div>
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[5])}" click.trigger="cellClicked(5)"><i class="${getCellImageClass(cells[5])}"></i></button></div>
+    </div>
+    <div class="row gutter-10">
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[6])}" click.trigger="cellClicked(6)"><i class="${getCellImageClass(cells[6])}"></i></button></div>
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[7])}" click.trigger="cellClicked(7)"><i class="${getCellImageClass(cells[7])}"></i></button></div>
+      <div class="col-xs-4 col-sm-2"><button class="${getCellButtonClass(cells[8])}" click.trigger="cellClicked(8)"><i class="${getCellImageClass(cells[8])}"></i></button></div>
+    </div>
+    <!--</div>-->
+
+  </section>
+
+</template>

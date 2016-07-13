@@ -52,6 +52,7 @@ namespace TicTacTechActors
 
         public Task GoAndPlay()
         {
+            ActorEventSource.Current.ActorMessage(this, "Player.GoAndPlay()");
             GameManager.Instance().LetMePlay(this);
             return Task.FromResult(true);
         }

@@ -28,12 +28,14 @@ namespace TicTacTechActors
             if (State.Initiator == null)
             {
                 State.Initiator = playerId;
+                SaveState();
                 await Task.FromResult(true);
             }
             else
             {
                 var initiator = State.Initiator;
                 State.Initiator = null;
+                SaveState();
                 await Game.CreateNew()
                     .StartGame(
                         Player.FromId(initiator),

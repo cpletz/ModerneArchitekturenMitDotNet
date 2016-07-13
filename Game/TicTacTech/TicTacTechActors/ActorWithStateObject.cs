@@ -7,7 +7,7 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace TicTacTechActors
 {
-    public abstract class ActorWithStateObject<TState> : Actor
+    public abstract class ActorWithStateObject<TState>  : Actor where TState : new()
     {
         const string STATE_NAME = "object_state";
 
@@ -21,7 +21,7 @@ namespace TicTacTechActors
 
                 if(!_initialized)
                 {
-                    _state = StateManager.GetOrAddStateAsync<TState>(STATE_NAME, default(TState)).Result;
+                    _state = StateManager.GetOrAddStateAsync<TState>(STATE_NAME, new TState()).Result;
                     _initialized = true;
                 }
                 return _state;
