@@ -1,0 +1,12 @@
+<template>
+  <section class="au-animate">
+    <h2>${heading}</h2>
+    <form role="form" submit.delegate="submit()">
+      <div class="form-group">
+        <label for="id">Player Id</label>
+        <input type="text" value.bind="playerId" class="form-control" id="id" placeholder="Player Id">
+      </div>      
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </section>
+</template>

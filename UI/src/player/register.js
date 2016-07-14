@@ -1,9 +1,10 @@
 import {HttpClient} from 'aurelia-http-client';
 
-export class GamerLogin {
+
+export class Register {
 
   constructor() {
-    this.heading = 'Please log in';
+    this.heading = 'Tell me all about you';
     this.identifier = 'mpletz';
     this.firstName = 'Manuel';
     this.lastName = 'Pletz';
@@ -11,7 +12,7 @@ export class GamerLogin {
 
   submit() {
     const data = {
-      identifier: this.identifier,
+      id: this.identifier,
       firstName: this.firstName, 
       lastName: this.lastName
     };
@@ -19,15 +20,17 @@ export class GamerLogin {
     const json = JSON.stringify(data);
 
     const http = new HttpClient();
-    let request = http.createRequest('some/cool/path')
+    let request = http.createRequest('http://localhost:60572/api/player')
       .asPost()
-      .withContent(json);
+      .withContent(data);
 
       request.send()
         .then(
           result => {alert(result);},
           error => {alert(error.response);}
           );
+
+
   }
 
   canDeactivate() {

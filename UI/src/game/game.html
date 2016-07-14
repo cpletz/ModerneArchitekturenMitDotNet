@@ -1,28 +1,31 @@
 <template>
-  <require from="game.css"></require>
+  <require from="game/game.css"></require>
   <section class="au-animate">
     <h3>Let's play ...</h3>
     <form class="form-horizontal" role="form" submit.trigger="submit()">
 
-      <div class="form-group">
-        <div class="col-xs-offset-1 col-xs-11">
+      <!--<div class="form-group">
+        <div class="col-sm-offset-1 col-xs-offset-2 col-xs-10 col-sm-10">
           <button type="submit" class="btn btn-primary">I want to play</button>
         </div>
-      </div>
+      </div>-->
 
       <div class="form-group">
-        <label for="id" class="col-xs-1 control-label">You</label>
-        <div class="col-xs-2">
+        <label for="id" class="col-xs-2 col-sm-1 control-label">You</label>
+        <div class="col-xs-4 col-sm-2">
           <input type="text" value.bind="playerId" class="form-control" id="id" placeholder="identifier">
         </div>
         <div class="col-xs-1">
           <i class="fa fa-${myRoleIcon} fa-2x"></i>
         </div>
+        <div class="col-xs-2 col-sm-2">
+          <button type="submit" class="btn btn-primary">Play</button>
+        </div>
       </div>
       <div class="form-group">
-        <label for="other" class="col-xs-1 control-label">Other</label>
-        <div class="col-xs-2">
-          <input type="text" value.bind="otherPlayer" class="form-control" readonly="readonly" id="other" >
+        <label for="other" class="col-xs-2 col-sm-1 control-label">Other</label>
+        <div class="col-xs-4 col-sm-2">
+          <input type="text" value.bind="otherPlayer" class="form-control" readonly="readonly" id="other">
         </div>
         <div class="col-xs-1">
           <i class="fa fa-${otherRoleIcon} fa-2x"></i>

@@ -4,16 +4,20 @@ import 'ms-signalr-client';
 import {LogManager} from 'aurelia-framework';
 import {computedFrom} from 'aurelia-framework';
 
-const logger = LogManager.getLogger('communications/signalr');
+const logger = LogManager.getLogger('game');
+
+// const gameServiceUri = 'http://tictactech.westeurope.cloudapp.azure.com:8222/';
+const gameServiceUri = 'http://localhost:8222/';
 
 export class Game {
 
     constructor() {
         this.heading = 'Let\'s play!';
         this.playerId = '';
-        this.signalRClientId = ''
+        this.connectionId = ''
         this.gameHub = {};
-        this.cells = 'EEEEEEEEE'.split('');
+        this.cells = [];
+        this.resetCells();
         this.otherPlayer = '';
         this.role = '';
         this.status = 'NoGame';
@@ -23,25 +27,59 @@ export class Game {
 
     submit() {
         logger.info('submit called for: ' + this.playerId);
-        this.gameHub.invoke('LetMePlay', this.playerId, this.signalRClientId);
+        this.gameHub.invoke('LetMePlay', this.playerId, this.connectionId);
+        this.resetCells();
         this.status = 'WaitingForOther';
         this.setMessage();
-        // const data = {
-        //     id: this.playerId
-        // };
-
-        // const http = new HttpClient();
-        // let request = http.createRequest('http://localhost:8222/api/goandplay')
-        //     .asPost()
-        //     .withContent(data);
-
-        // request.send()
-        //     .then(
-        //     result => { alert(result); },
-        //     error => { alert(error.response); }
-        //     );
     }
 
+    cellClicked(index) {
+        if (this.status === "MoveRequired" && this.cells[index] === 'E') {
+            this.cells[index] = this.role;
+            this.cells = this.cells.join('').split('');
+            this.gameHub.invoke('SelectCell', this.playerId, this.connectionId, index);
+            this.status = 'WaitAndSee';
+        }
+    }
+
+    activate() {
+        let connection = $.hubConnection(gameServiceUri);
+        let proxy = connection.createHubProxy('GameHub');
+        proxy.logging = true;
+
+        proxy.on('gameStarted', (otherPlayer, yourRole) => {
+            this.gameStarted(otherPlayer, yourRole);
+        });
+
+        proxy.on('gameStateChanged', (cells, status) => {
+            this.gameStateChanged(cells, status);
+        });
+
+        connection.reconnecting(info => {
+            logger.info('reconnecting');
+        });
+
+        connection.reconnected(info => {
+            logger.info('reconnected');
+        });
+
+        connection.disconnected(info => {
+            logger.info('disconnected');
+        });
+
+        connection.error(function (error) {
+            logger.error('SignalR error: ' + error)
+        });
+
+        connection.start(/*{ jsonp: true }*/).done(info => { // with jsonp we get long polling instead of web-sockets
+            this.connectionId = info.id;
+            this.gameHub = proxy;
+        });
+    }
+
+    resetCells() {
+        this.cells = 'EEEEEEEEE'.split('');
+    }
 
     getMessage() {
         switch (this.status) {
@@ -80,13 +118,14 @@ export class Game {
     getCellButtonClass(value) {
         if (value === 'X') return 'btn btn-warning square disabled';
         if (value === 'O') return 'btn btn-info square disabled';
-        if (this.status === "MoveRequired") return 'btn btn-success square';
+        if (this.status === "MoveRequired") return 'btn btn-default square';
         return 'btn btn-default square disabled';
     }
 
     getCellImageClass(value) {
         if (value === 'X') return 'fa fa-remove fa-5x';
         if (value === 'O') return 'fa fa-circle-o fa-5x';
+        if (value === 'WaitAndSee') return 'fa fa-spinner fa-splin';
         return 'fa fa-square-o fa-5x';
     }
 
@@ -108,50 +147,8 @@ export class Game {
         }
     }
 
-    cellClicked(index) {
-        if (this.status === "MoveRequired" && this.cells[index] === 'E') {
-            this.cells[index] = this.role;
-            this.cells = this.cells.join('').split('');
-            this.gameHub.invoke('SelectCell', this.playerId, this.signalRClientId, index);
-        }
-    }
-
-    activate() {
-        let connection = $.hubConnection('http://tictactech.westeurope.cloudapp.azure.com:8222/');
-        let proxy = connection.createHubProxy('GameHub');
-        proxy.logging = true;
-
-        proxy.on('gameStarted', (otherPlayer, yourRole) => {
-            this.gameStarted(otherPlayer, yourRole);
-        });
-
-        proxy.on('gameStateChanged', (cells, status) => {
-            this.gameStateChanged(cells, status);
-        });
-
-        connection.reconnecting(info => {
-            logger.info('reconnecting');
-        });
-
-        connection.reconnected(info => {
-            logger.info('reconnected');
-        });
-
-        connection.disconnected(info => {
-            logger.info('disconnected');
-        });
-
-        connection.error(function (error) {
-            logger.error('SignalR error: ' + error)
-        });
-
-        connection.start({ jsonp: true }).done(info => {
-            this.signalRClientId = info.id;
-            this.gameHub = proxy;
-        });
 
 
 
-    }
 
 }
