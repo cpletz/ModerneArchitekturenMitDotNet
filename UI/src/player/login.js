@@ -1,36 +1,29 @@
-import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-http-client';
-import {ServiceUrl} from './service-url';
+import {inject, NewInstance} from 'aurelia-framework';
+import {ServiceApi} from './service-api';
+import {ValidationController, validateTrigger} from 'aurelia-validation';
+import {required, email, ValidationRules} from 'aurelia-validatejs';
 
-@inject(HttpClient)
+@inject(ServiceApi, NewInstance.of(ValidationController))
 export class Login {
 
-  constructor(http) {
+  @required 
+  playerId = '';
+
+  constructor(svcApi, valctrl) {
     this.heading = 'Please log in';
-    this.playerId = '';
-
-    http.configure(config => {
-      config
-        .withBaseUrl(ServiceUrl.Url);
-    });
-
-    this.http = http;
-  }
-
-  activate(params, navigationInstruction) {
-    console.log(navigationInstruction);
+    // this.playerId = '';
+    this.serviceApi = svcApi;
+    this.valctrl = valctrl;
   }
 
   submit() {
+    let errors = this.valctrl.validate();
 
-    let request = this.http.createRequest(this.playerId).asGet();
-
-    request.send()
+    this.serviceApi.getPlayer(this.playerId)
       .then(
-      result => { alert(result); },
+      result => { alert("well done!"); },
       error => { alert(error.response); }
       );
   }
-
 
 }
