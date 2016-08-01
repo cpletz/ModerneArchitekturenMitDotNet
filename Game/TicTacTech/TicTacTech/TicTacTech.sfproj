@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TicTacTechActors\TicTacTechActors.csproj" />
     <ProjectReference Include="..\TicTacTechApi\TicTacTechApi.csproj" />
+    <ProjectReference Include="..\TicTacTechPlayer\TicTacTechPlayer.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

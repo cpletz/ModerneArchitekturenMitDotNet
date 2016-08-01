@@ -18,14 +18,15 @@ export class ServiceApi {
         return request.send()
     }
 
-    createPlayer(playerId, firstName, lastName) {
+    createPlayer(playerId, firstName, lastName, email) {
         let data = {
-            id: playerId,
+            playerId: playerId,
             firstName: firstName,
-            lastName: lastName
+            lastName: lastName,
+            email: email
         };
 
-        let request = http.createRequest('')
+        let request = this.http.createRequest('')
             .asPost()
             .withContent(data);
         return request.send();

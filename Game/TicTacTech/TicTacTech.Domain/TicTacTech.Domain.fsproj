@@ -49,8 +49,6 @@
     <Compile Include="TicTacToeDomain.fs" />
     <Compile Include="TicTacToe.fs" />
     <Compile Include="SerializableGameState.fs" />
-    <None Include="Script.fsx" />
-    <Compile Include="TicTacToeImpl.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
