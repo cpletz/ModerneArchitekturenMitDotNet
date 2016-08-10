@@ -181,6 +181,10 @@
       <Project>{e99b3fc7-6811-47cf-ba49-4db6f51ba3a0}</Project>
       <Name>TicTacTechActors.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicTacTechPlayer.Interfaces\TicTacTechPlayer.Interfaces.csproj">
+      <Project>{4BD92D4A-BE42-4DD9-87AA-E4D4D6038C98}</Project>
+      <Name>TicTacTechPlayer.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />

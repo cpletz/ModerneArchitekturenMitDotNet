@@ -7,19 +7,39 @@ using System.Threading.Tasks;
 using Microsoft.Azure;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using ServiceFabric.ServiceBus.Services.CommunicationListeners;
+using TicTacTechPlayer.Interfaces;
 
 namespace TicTacTechPlayer
 {
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
-    internal sealed class TicTacTechPlayer : StatefulService
+    internal sealed class TicTacTechPlayer : StatefulService, IPlayers
     {
         public TicTacTechPlayer(StatefulServiceContext context)
             : base(context)
         { }
+
+        public async Task<IEnumerable<string>> GetPlayers()
+        {
+            var results = new List<string>();
+            var resources = new Resources(StateManager);
+            var players = await resources.GetPlayerDict();
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var playersEnumerable = await players.CreateEnumerableAsync(tx);
+                var playersEnumerator = playersEnumerable.GetAsyncEnumerator();
+                var more = true;
+                while (more = await playersEnumerator.MoveNextAsync(CancellationToken.None))
+                {
+                    results.Add(playersEnumerator.Current.Value);
+                }
+            }
+            return results;
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or user requests.
@@ -30,11 +50,14 @@ namespace TicTacTechPlayer
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
+            yield return new ServiceReplicaListener(context => this.CreateServiceRemotingListener(context));
+
             yield return new ServiceReplicaListener(context => new ServiceBusSubscriptionCommunicationListener(
                 new PlayerChangedHandler(this)
                 , context
                 , "playerchanged"
                 , "game"), "StatefulService-ServiceBusSubscriptionListener");
+
         }
 
         ///// <summary>

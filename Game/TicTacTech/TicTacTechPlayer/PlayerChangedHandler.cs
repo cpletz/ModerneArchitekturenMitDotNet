@@ -15,12 +15,14 @@ namespace TicTacTechPlayer
 
     internal sealed class PlayerChangedHandler : IServiceBusMessageReceiver
     {
-        const string PlayerDictName = "Players";
-        private readonly StatefulService _service;
+
+        readonly StatefulService _service;
+        readonly Resources _resources;
 
         public PlayerChangedHandler(StatefulService service)
         {
             _service = service;
+            _resources = new Resources(service.StateManager);
         }
 
         public async Task ReceiveMessageAsync(BrokeredMessage message, CancellationToken cancellationToken)
@@ -30,21 +32,25 @@ namespace TicTacTechPlayer
             var playerJson = message.GetBody<string>();
             var player = JsonConvert.DeserializeObject<Player>(playerJson);
 
-            var playerDict = await GetPlayerDict();
+            var playerDictTask = _resources.GetPlayerDict();
+            var messagesDictTask = _resources.GetReceivedMessagesDict();
+            var playerDict = playerDictTask.Result;
+            var messages = messagesDictTask.Result;
+
+            await Task.WhenAll(playerDictTask, messagesDictTask);
 
             using (var tx = _service.StateManager.CreateTransaction())
             {
-
-                var addRes = await playerDict.AddOrUpdateAsync(tx, player.playerId, playerJson, (o, n) => n);
+                var received = await messages.AddOrUpdateAsync(tx, message.MessageId, 1, (m, c) => c + 1);
+                if (received == 1)
+                {
+                    var addRes = await playerDict.AddOrUpdateAsync(tx, player.playerId, playerJson, (o, n) => n);
+                }
                 await tx.CommitAsync();
-                //await message.CompleteAsync();
+                message.Complete();
             }
         }
 
-        async Task<IReliableDictionary<string, string>> GetPlayerDict()
-        {
-            return await _service.StateManager.GetOrAddAsync<IReliableDictionary<string, string>>(PlayerDictName);
-        }
     }
 
     internal class Player

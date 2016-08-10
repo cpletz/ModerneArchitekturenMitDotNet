@@ -5,17 +5,21 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
+using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using TicTacTechActors.Interfaces;
+using TicTacTechPlayer.Interfaces;
 
 namespace TicTacTechApi.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values 
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var playersService =
+                ServiceProxy.Create<IPlayers>(new Uri("fabric:/TicTacTech/TicTacTechPlayer"), new ServicePartitionKey(1L));
+
+            return await playersService.GetPlayers();
         }
 
         // POST api/values 
