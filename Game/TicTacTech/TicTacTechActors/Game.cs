@@ -10,6 +10,7 @@ using static TicTacToe;
 using static TicTacToeGameStateSerializer;
 using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Actors.Runtime;
+using static TicTacToeDomain;
 
 namespace TicTacTechActors
 {
@@ -77,6 +78,15 @@ namespace TicTacTechActors
 
             var otherPlayer = Player.FromId(isPlayerX ? State.PlayerO : State.PlayerX);
 
+            if(newStatus.IsTie || newStatus.IsWonByX || newStatus.IsWonByO)
+            {
+                ServiceBusMessageSender.SendGameFinished(Game.GetId(this), DateTime.UtcNow, newStatus.ToString());
+            }
+            else
+            {
+                ServiceBusMessageSender.SendGameMove(Game.GetId(this), DateTime.UtcNow, isPlayerX ? "X" : "O", cellId);
+            }
+
             await Task.WhenAll(
                 player.GameStateChanged(State.GameState.board, playerStatus),
                 otherPlayer.GameStateChanged(State.GameState.board, otherPlayerStatus)
@@ -99,6 +109,7 @@ namespace TicTacTechActors
                 );
 
             playerX.GameStateChanged(State.GameState.board, PlayerGameStatus.MoveRequired);
+            ServiceBusMessageSender.SendGameStarted(GetId(this), DateTime.UtcNow, Player.GetId(playerX), Player.GetId(playerO));
         }
 
         public Task ReceiveReminderAsync(string reminderName, byte[] context, TimeSpan dueTime, TimeSpan period)

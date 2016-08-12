@@ -30,15 +30,13 @@ namespace Player.Controllers
 
         static readonly TopicClient s_svcBusClient = TopicClient.CreateFromConnectionString(CloudConfigurationManager.GetSetting("Microsoft.ServiceBus.ConnectionString"), "PlayerChanged");
 
-        // GET: api/Player/5
-        //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public P Get(string id)
         {
             var playerDoc = s_docDBClient.CreateDocumentQuery(s_documentCollectionUri).Where(doc => doc.Id == id).ToList().SingleOrDefault();
             if(playerDoc != null)
             {
                 return new P {
-                    playerId = id,
+                    id = id,
                     firstName = playerDoc.GetPropertyValue<string>("firstName"),
                     lastName = playerDoc.GetPropertyValue<string>("lastName"),
                     email = playerDoc.GetPropertyValue<string>("email") };
@@ -54,16 +52,6 @@ namespace Player.Controllers
             s_svcBusClient.Send(new BrokeredMessage(playerJson));
             return value;
         }
-
-        //// PUT: api/Player/5
-        //public void Put(string id, [FromBody]P value)
-        //{
-        //}
-
-        //// DELETE: api/Player/5
-        //public void Delete(string id)
-        //{
-        //}
 
     }
 }

@@ -44,7 +44,7 @@ namespace TicTacTechPlayer
                 var received = await messages.AddOrUpdateAsync(tx, message.MessageId, 1, (m, c) => c + 1);
                 if (received == 1)
                 {
-                    var addRes = await playerDict.AddOrUpdateAsync(tx, player.playerId, playerJson, (o, n) => n);
+                    var addRes = await playerDict.AddOrUpdateAsync(tx, player.id, playerJson, (o, n) => n);
                 }
                 await tx.CommitAsync();
                 message.Complete();
@@ -55,7 +55,7 @@ namespace TicTacTechPlayer
 
     internal class Player
     {
-        public string playerId { get; set; }
+        public string id { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }

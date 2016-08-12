@@ -23,7 +23,7 @@ export class App {
   }
 
   playerLoggedIn(data) {
-    this.router.playerId = data.playerId;
+    this.router.playerId = data.id;
     this.router.navigate('game');
   }
 

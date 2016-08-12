@@ -20,7 +20,7 @@ export class ServiceApi {
 
     createPlayer(playerId, firstName, lastName, email) {
         let data = {
-            playerId: playerId,
+            id: playerId,
             firstName: firstName,
             lastName: lastName,
             email: email
