@@ -3,17 +3,21 @@ import $ from 'jquery';
 import 'ms-signalr-client';
 import {LogManager} from 'aurelia-framework';
 import {computedFrom} from 'aurelia-framework';
+import {inject} from 'aurelia-framework';
+import {CurrentPlayer} from './../current-player';
 
 const logger = LogManager.getLogger('game');
 
 // const gameServiceUri = 'http://tictactech.westeurope.cloudapp.azure.com:8222/';
 const gameServiceUri = 'http://localhost:8222/';
 
+@inject(CurrentPlayer)
 export class Game {
 
-    constructor() {
+    constructor(currentPlayer) {
+        this.currentPlayer = currentPlayer;
         this.heading = 'Let\'s play!';
-        this.playerId = '';
+        this.playerId = currentPlayer.playerId;
         this.connectionId = ''
         this.gameHub = {};
         this.cells = [];
@@ -27,10 +31,12 @@ export class Game {
 
     submit() {
         logger.info('submit called for: ' + this.playerId);
-        this.gameHub.invoke('LetMePlay', this.playerId, this.connectionId);
-        this.resetCells();
-        this.status = 'WaitingForOther';
-        this.setMessage();
+        if (this.playerId) {
+            this.gameHub.invoke('LetMePlay', this.playerId, this.connectionId);
+            this.resetCells();
+            this.status = 'WaitingForOther';
+            this.setMessage();
+        }
     }
 
     cellClicked(index) {
@@ -71,7 +77,7 @@ export class Game {
             logger.error('SignalR error: ' + error)
         });
 
-        connection.start(/*{ jsonp: true }*/).done(info => { // with jsonp we get long polling instead of web-sockets
+        connection.start().done(info => { 
             this.connectionId = info.id;
             this.gameHub = proxy;
         });

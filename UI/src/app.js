@@ -1,13 +1,17 @@
 import {Redirect} from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import {inject} from 'aurelia-framework';
+import {CurrentPlayer} from './current-player';
+import {BusyState} from './busy-state';
 
-@inject(EventAggregator)
+@inject(EventAggregator, CurrentPlayer, BusyState)
 export class App {
 
-  constructor(ea) {
+  constructor(ea, cp, bs) {
     ea.subscribe('player/loggedin', data => { this.playerLoggedIn(data) });
     this.eventAggregator = ea;
+    this.currentPlayer = cp;
+    this.busyState = bs;
   }
 
   configureRouter(config, router) {

@@ -2,6 +2,7 @@
   <require from="./validation-summary.html"></require>
   <section class="au-animate">
     <h2>${heading}</h2>
+    <loading-indicator loading.bind="isRequesting"></loading-indicator>
     <form role="form" submit.delegate="submit()" validation-renderer="bootstrap-form" validation-errors.bind="errors">
       <validation-summary errors.bind="errors" autofocus.bind="controller.validateTrigger === 'manual'">
       </validation-summary>

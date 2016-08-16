@@ -16,10 +16,10 @@ namespace TicTacTechActors
             GameStartedTopic.SendAsync(new BrokeredMessage(JsonConvert.SerializeObject(new { gameId, startTime, playerX, playerO })));
 
         public static void SendGameFinished(Guid gameId, DateTime endTime, string result) =>
-            GameStartedTopic.SendAsync(new BrokeredMessage(JsonConvert.SerializeObject(new { gameId, endTime, result })));
+            GameFinishedTopic.SendAsync(new BrokeredMessage(JsonConvert.SerializeObject(new { gameId, endTime, result })));
 
         public static void SendGameMove(Guid gameId, DateTime time, string moveBy, int position) =>
-            GameStartedTopic.SendAsync(new BrokeredMessage(JsonConvert.SerializeObject(new { gameId, time, moveBy, position})));
+            GameMoveTopic.SendAsync(new BrokeredMessage(JsonConvert.SerializeObject(new { gameId, time, moveBy, position})));
 
     }
 }

@@ -13,10 +13,39 @@ namespace TicTacTechDataCollector
     {
 
         public static void GameStartedListener(
-            [ServiceBusTrigger("gamestarted", "stats")] BrokeredMessage message, TextWriter log)
+            [ServiceBusTrigger("gamestarted", "stats")] BrokeredMessage message, 
+            TextWriter log)
         {
             var data = message.GetBody<string>();
             log.WriteLine($"Game started: {data}");
+            message.Complete();
+        }
+
+        public static void GameFinishedListener(
+            [ServiceBusTrigger("gamefinished", "stats")] BrokeredMessage message, 
+            TextWriter log)
+        {
+            var data = message.GetBody<string>();
+            log.WriteLine($"Game finished: {data}");
+            message.Complete();
+        }
+
+        public static void GameMoveListener(
+            [ServiceBusTrigger("gamemove", "stats")] BrokeredMessage message,
+            TextWriter log)
+        {
+            var data = message.GetBody<string>();
+            log.WriteLine($"Game move: {data}");
+            message.Complete();
+        }
+
+        public static void PlayerChangedListener(
+            [ServiceBusTrigger("playerchanged", "stats")] BrokeredMessage message,
+            TextWriter log)
+        {
+            var data = message.GetBody<string>();
+            log.WriteLine($"Player changed: {data}");
+            message.Complete();
         }
 
     }
