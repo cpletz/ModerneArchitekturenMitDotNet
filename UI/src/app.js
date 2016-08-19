@@ -19,6 +19,7 @@ export class App {
     config.map([
       { route: 'player', name: 'player', moduleId: 'player/router', nav: true, title: 'Player' },
       { route: 'game', name: 'game', moduleId: 'game/game', nav: true, title: 'Game' },
+      { route: 'stats', name: 'stats', moduleId: 'stats/router', nav: true, title: 'Statistics' },
       { route: '', redirect: 'player' }
     ]);
 

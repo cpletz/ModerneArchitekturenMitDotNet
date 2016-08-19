@@ -2,7 +2,7 @@ import {Redirect} from 'aurelia-router';
 
 export class Router {
   
-  heading = 'Gamer stuff';
+  heading = 'Login or register';
 
   configureRouter(config, router) {
     config.map([

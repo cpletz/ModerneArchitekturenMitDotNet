@@ -1,16 +1,12 @@
-﻿using Microsoft.ServiceFabric.Actors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Client;
+using Microsoft.ServiceFabric.Actors.Runtime;
 using TicTacTechActors.Interfaces;
 using static TicTacToe;
 using static TicTacToeGameStateSerializer;
-using Microsoft.ServiceFabric.Actors.Client;
-using Microsoft.ServiceFabric.Actors.Runtime;
-using static TicTacToeDomain;
 
 namespace TicTacTechActors
 {
@@ -80,11 +76,12 @@ namespace TicTacTechActors
 
             if(newStatus.IsTie || newStatus.IsWonByX || newStatus.IsWonByO)
             {
-                ServiceBusMessageSender.SendGameFinished(Game.GetId(this), DateTime.UtcNow, newStatus.ToString());
+                var statusStr = newStatus.IsTie ? "Draw" : newStatus.IsWonByX ? "X won" : "O won";
+                ServiceBusMessageSender.SendGameFinished(Game.GetId(this), DateTime.UtcNow, statusStr, State.GameState.board);
             }
             else
             {
-                ServiceBusMessageSender.SendGameMove(Game.GetId(this), DateTime.UtcNow, isPlayerX ? "X" : "O", cellId);
+                ServiceBusMessageSender.SendGameMove(Game.GetId(this), DateTime.UtcNow, isPlayerX ? "X" : "O", cellId, State.GameState.board);
             }
 
             await Task.WhenAll(

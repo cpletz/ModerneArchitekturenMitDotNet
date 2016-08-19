@@ -4,7 +4,9 @@
 
   <nav-bar router.bind="router" busy.bind="busyState"></nav-bar>
 
-  <div class="page-host">
+  <div class="page-host disabled">
+    <!--<loading-indicator loading.bind="router.isNavigating || busy.isBusy"></loading-indicator>-->
     <router-view></router-view>
   </div>
+
 </template>

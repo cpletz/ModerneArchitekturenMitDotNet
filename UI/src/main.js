@@ -7,6 +7,7 @@ export function configure(aurelia) {
     .plugin('aurelia-validation')
     .plugin('aurelia-validatejs')
     .feature('bootstrap-validation');
+    // .feature('resources');
 
   //Uncomment the line below to enable animation.
   //aurelia.use.plugin('aurelia-animator-css');

@@ -1,0 +1,23 @@
+<template>
+    <section class="au-animate">
+        <h2>${heading}</h2>
+
+        <table class="table table-striped">
+            <th>Started</th>
+            <th>Player X</th>
+            <th>Player O</th>
+            <th>Status</th>
+            <th>Board</th>
+
+            <tr repeat.for="game of games">
+                <td>${game.startTime}</td>
+                <td>${game.playerX}</td>
+                <td>${game.playerO}</td>
+                <td>${game.status}</td>
+                <td>${game.board}</td>
+            </tr>
+
+        </table>
+
+    </section>
+</template>
