@@ -13,6 +13,10 @@ export class Live {
         this.games = [];
     }
 
+    makeBoardArray(board) {
+        return Array.from(board.split('').map(e => e === 'E' ? ' ' : e));
+    }
+
     getGameInfo(gameId) {
         let gameInfo = this._games.get(gameId);
         if (!gameInfo) gameInfo = {
@@ -21,8 +25,8 @@ export class Live {
             playerX: '',
             playerO: '',
             status: 'started',
-            board: 'EEEEEEEEE',
-            lastPosition: -1,
+            board: this.makeBoardArray('EEEEEEEEE'),
+            pos: -1,
             finished: false
         };
         return gameInfo;
@@ -30,19 +34,18 @@ export class Live {
 
     updateGames(gameId, gameInfo) {
         this._games.set(gameId, gameInfo);
-        this.games = Array.from(this._games.values()); //.sort(
-            // (a, b) => a.startTime > b.startTime ? -1 : 1);
+        this.games = Array.from(this._games.values())
+            .sort( (a, b) => a.startTime > b.startTime ? -1 : 1);
     }
 
     gameStarted(msg) {
         logger.info("game started");
         const msgObj = JSON.parse(msg);
         const gameInfo = this.getGameInfo(msgObj.gameId);
-        gameInfo.startTime = msgObj.startTime;
+        gameInfo.startTime = new Date(msgObj.startTime).toLocaleTimeString();
         gameInfo.playerX = msgObj.playerX;
         gameInfo.playerO = msgObj.playerO;
         gameInfo.status = 'started';
-        gameInfo.board = msgObj.board;
         this.updateGames(msgObj.gameId, gameInfo);
     }
 
@@ -51,9 +54,10 @@ export class Live {
         const msgObj = JSON.parse(msg);
         const gameInfo = this.getGameInfo(msgObj.gameId);
         gameInfo.finished = true;
-        gameInfo.status = msgObj.result;
+        gameInfo.status = msgObj.result;    
         gameInfo.endTime = msgObj.endTime;
-        gameInfo.board = msgObj.board;
+        gameInfo.board = this.makeBoardArray(msgObj.board);
+        gameInfo.pos = -1;
         this.updateGames(msgObj.gameId, gameInfo);
     }
 
@@ -63,8 +67,8 @@ export class Live {
         const gameInfo = this.getGameInfo(msgObj.gameId);
         if(!gameInfo.finished) {
             gameInfo.status = `Move by ${msgObj.moveBy}`;
-            gameInfo.board = msgObj.board;
-            gameInfo.lastPosition = msgObj.position;
+            gameInfo.board = this.makeBoardArray(msgObj.board);
+            gameInfo.pos = msgObj.position;
             this.updateGames(msgObj.gameId, gameInfo);
         }
     }

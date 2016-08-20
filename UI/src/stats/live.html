@@ -14,7 +14,27 @@
                 <td>${game.playerX}</td>
                 <td>${game.playerO}</td>
                 <td>${game.status}</td>
-                <td>${game.board}</td>
+                <td>
+                    <table class="table table-bordered table-condensed">
+                        <tbody>
+                            <tr>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 0 ? 'warning' : ''}">${game.board[0]}</td>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 1 ? 'warning' : ''}">${game.board[1]}</td>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 2 ? 'warning' : ''}">${game.board[2]}</td>
+                            </tr>
+                            <tr>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 3 ? 'warning' : ''}">${game.board[3]}</td>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 4 ? 'warning' : ''}">${game.board[4]}</td>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 5 ? 'warning' : ''}">${game.board[5]}</td>
+                            </tr>
+                            <tr>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 6 ? 'warning' : ''}">${game.board[6]}</td>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 7 ? 'warning' : ''}">${game.board[7]}</td>
+                                <td height="31px" width="31px" class="col-xs-4 text-center ${game.pos === 8 ? 'warning' : ''}">${game.board[8]}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
             </tr>
 
         </table>
