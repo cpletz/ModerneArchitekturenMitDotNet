@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Move]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [GameId] UNIQUEIDENTIFIER NOT NULL, 
+    [MoveBy] NCHAR(1) NOT NULL, 
+    [Position] INT NOT NULL, 
+    [Board] NCHAR(9) NOT NULL 
+)

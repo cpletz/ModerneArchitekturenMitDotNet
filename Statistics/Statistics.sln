@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacTechDataCollector", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacTechStats", "TicTacTechStats\TicTacTechStats.csproj", "{14D784EF-34B3-43EF-A27E-E32E432765F6}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TicTacTechStats.DB", "TicTacTechStats.DB\TicTacTechStats.DB.sqlproj", "{0623060C-E2C9-4CD0-98EA-A90A51CECE8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{14D784EF-34B3-43EF-A27E-E32E432765F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14D784EF-34B3-43EF-A27E-E32E432765F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14D784EF-34B3-43EF-A27E-E32E432765F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0623060C-E2C9-4CD0-98EA-A90A51CECE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0623060C-E2C9-4CD0-98EA-A90A51CECE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0623060C-E2C9-4CD0-98EA-A90A51CECE8A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0623060C-E2C9-4CD0-98EA-A90A51CECE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0623060C-E2C9-4CD0-98EA-A90A51CECE8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0623060C-E2C9-4CD0-98EA-A90A51CECE8A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
