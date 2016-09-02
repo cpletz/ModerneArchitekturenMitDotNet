@@ -6,7 +6,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace TicTacTechStats.Controllers
 {
@@ -14,7 +16,7 @@ namespace TicTacTechStats.Controllers
     {
         static string DbConnStr => ConfigurationManager.ConnectionStrings["TicTacTechStatsDB"].ConnectionString;
 
-        public string Get()
+        public HttpResponseMessage Get()
         {
             using (var conn = new SqlConnection(DbConnStr))
             {
@@ -23,8 +25,17 @@ namespace TicTacTechStats.Controllers
                 cmd.CommandText = "[dbo].[RetrieveHighscore]";
                 cmd.CommandType = CommandType.StoredProcedure;
                 var res = cmd.ExecuteScalar();
-                return res.ToString();
+                var response = this.Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(res.ToString(), Encoding.UTF8, "application/json");
+                return response;
             }
+        }
+
+
+
+        protected override ResponseMessageResult ResponseMessage(HttpResponseMessage response)
+        {
+            return base.ResponseMessage(response);
         }
     }
 }

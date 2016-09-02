@@ -22,7 +22,7 @@ let mimeTypes =
     | ".woff2" -> mkMimeType "application/font-woff2" false
     | _ -> None)
 
-let homePath = __SOURCE_DIRECTORY__
+let homePath = sprintf "%s\\export" __SOURCE_DIRECTORY__
 
 let config = 
     { defaultConfig with homeFolder = Some(homePath)

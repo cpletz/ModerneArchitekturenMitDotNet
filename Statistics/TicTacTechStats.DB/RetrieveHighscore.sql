@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[RetrieveHighscore]
 AS
-	SELECT top 50 a.Player as PlayerId, FirstName + ' ' + LastName as Name, Points
+	SELECT top 50 a.Player as playerId, FirstName + ' ' + LastName as name, points
 	  FROM (
 		SELECT Player, sum(Points) as Points
 		  FROM (

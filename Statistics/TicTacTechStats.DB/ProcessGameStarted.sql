@@ -5,7 +5,7 @@ AS
 	select * 
 	  from openjson(@json) with (
 		GameId uniqueidentifier '$.gameId',
-		StartTime datetime '$.startTime',
+		StartTime nvarchar(50) '$.startTime',
 		PlayerX nvarchar(50) '$.playerX',
 		PlayerO nvarchar(50) '$.playerO'
 	  )

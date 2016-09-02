@@ -32,7 +32,9 @@ module.exports = {
         "bootstrap/css/bootstrap.css!text",
         "fetch",
         "jquery",
-        "ms-signalr-client"
+        "ms-signalr-client",
+        "aurelia-validatejs",
+        "aurelia-validation"
       ],
       "options": {
         "inject": true,

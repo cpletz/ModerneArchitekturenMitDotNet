@@ -9,7 +9,7 @@ AS
 	       join
            openjson(@json) with (
 				GameId uniqueidentifier '$.gameId',
-				EndTime datetime '$.endTime',
+				EndTime nvarchar(50) '$.endTime',
 				Result nvarchar(50) '$.result',
 				Board nchar(9) '$.board') d
 		   on g.GameId = d.GameId

@@ -8,8 +8,8 @@ import {CurrentPlayer} from './../current-player';
 
 const logger = LogManager.getLogger('game');
 
-// const gameServiceUri = 'http://tictactech.westeurope.cloudapp.azure.com:8222/';
-const gameServiceUri = 'http://localhost:8222/';
+const gameServiceUri = 'http://tictactech.westeurope.cloudapp.azure.com:8222/';
+// const gameServiceUri = 'http://localhost:8222/';
 
 @inject(CurrentPlayer)
 export class Game {

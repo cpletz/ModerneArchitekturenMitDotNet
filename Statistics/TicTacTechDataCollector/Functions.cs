@@ -21,8 +21,9 @@ namespace TicTacTechDataCollector
         {
             using (var conn = new SqlConnection(DbConnStr))
             {
+                conn.Open();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = $"dbo.{proc} @json";
+                cmd.CommandText = $"dbo.{proc}";
                 cmd.CommandType = CommandType.StoredProcedure;
                 var jsonParam = cmd.Parameters.Add("@json", SqlDbType.NVarChar);
                 jsonParam.Value = json;

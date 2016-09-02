@@ -1,0 +1,15 @@
+<template>
+    <section class="au-animate">
+        <h2>${heading}</h2>
+        <table class="table table-striped">
+            <th>Player ID</th>
+            <th>Name</th>
+            <th>Points</th>
+            <tr repeat.for="player of players">
+                <td>${player.playerId}</td>
+                <td>${player.name}</td>
+                <td>${player.points}</td>
+            </tr>
+        </table>
+    </section>
+</template>
