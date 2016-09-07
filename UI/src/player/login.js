@@ -15,7 +15,6 @@ export class Login {
     this.valctrl = valctrl;
     this.eventAggregator = ea;
     this.serverError = '';
-    this.isRequesting = true;
     this.busyState = bs;
   }
 
@@ -23,7 +22,6 @@ export class Login {
     this.serverError = '';
     this.valctrl.validate();
     if (this.errors.length === 0) {
-      this.isRequesting = true;
       this.busyState.increment();
       this.serviceApi.getPlayer(this.playerId)
         .then(
@@ -35,17 +33,14 @@ export class Login {
             this.serverError = '';
             this.eventAggregator.publish('player/loggedin', JSON.parse(result.response));
           }
-          this.isRequesting = false;
           this.busyState.decrement();
         },
         error => {
           this.serverError = 'Request could not be processed.';
-          this.isRequesting = false;
           this.busyState.decrement();
         });
     }
   }
-
 }
 
 ValidationRules

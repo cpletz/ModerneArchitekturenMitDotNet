@@ -8,7 +8,7 @@ export class Router {
     config.map([
       { route: 'highscore', name: 'highscore', moduleId: 'stats/highscore', nav: true, title: 'Highscore' },
       { route: 'live', name: 'live', moduleId: 'stats/live', nav: true, title: 'Live games' },
-      { route: '', redirect: 'live' }
+      { route: '', redirect: 'highscore' }
     ]);
 
     this.router = router;

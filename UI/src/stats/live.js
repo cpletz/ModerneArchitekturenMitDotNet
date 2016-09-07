@@ -1,7 +1,7 @@
 import {LogManager} from 'aurelia-framework';
 import $ from 'jquery';
 import 'ms-signalr-client';
-import {ServiceUrl} from './service-url';
+import {StatsServiceUrl} from './stats-service-url';
 
 const logger = LogManager.getLogger('live-games');
 
@@ -75,7 +75,7 @@ export class Live {
 
 
     activate() {
-        let connection = $.hubConnection(ServiceUrl.Url);
+        let connection = $.hubConnection(StatsServiceUrl.Url);
         let proxy = connection.createHubProxy('LiveGamesHub');
         proxy.logging = true;
 

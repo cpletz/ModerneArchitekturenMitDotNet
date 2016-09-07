@@ -23,6 +23,7 @@ let mimeTypes =
     | _ -> None)
 
 let homePath = sprintf "%s\\export" __SOURCE_DIRECTORY__
+// let homePath =  __SOURCE_DIRECTORY__
 
 let config = 
     { defaultConfig with homeFolder = Some(homePath)

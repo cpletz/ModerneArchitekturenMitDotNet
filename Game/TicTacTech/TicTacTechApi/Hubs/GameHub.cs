@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.ServiceFabric.Actors;
@@ -13,65 +10,67 @@ namespace TicTacTechApi.Hubs
 {
     public class GameHub : Hub
     {
-
         class PlayerActorEventsListener : IPlayerEvents
         {
-            string _playerId;
             string _signalRId;
 
-            public PlayerActorEventsListener(string playerId, string signalRId)
+            public PlayerActorEventsListener(string signalRId)
             {
-                _playerId = playerId;
                 _signalRId = signalRId;
             }
 
             dynamic Client => GlobalHost.ConnectionManager.GetHubContext<GameHub>().Clients.Client(_signalRId);
 
-            public void GameStarted(string otherPlayer, string yourRole)
-            {
-                Client.gameStarted(otherPlayer, yourRole);
-            }
+            public void GameStarted(string otherPlayer, string yourRole) => Client.gameStarted(otherPlayer, yourRole);
 
-            public void GameStateChanged(string cells, PlayerGameStatus status)
-            {
-                Client.gameStateChanged(cells, status.ToString());
-            }
+            public void GameStateChanged(string cells, PlayerGameStatus status) => Client.gameStateChanged(cells, status.ToString());
         }
 
-
-        static ConcurrentDictionary<string, Tuple<string, IPlayer, PlayerActorEventsListener>> s_players = new ConcurrentDictionary<string, Tuple<string, IPlayer, PlayerActorEventsListener>>();
-
-        static IPlayer GetPlayerProxy(string playerId)
+        class PlayerContext
         {
-            return ActorProxy.Create<IPlayer>(new ActorId(playerId), new Uri("fabric:/TicTacTech/PlayerActorService"));
+            public string PlayerId { get; private set; }
+            public string SignalRConnectionId { get; private set; }
+            public IPlayer PlayerProxy { get; private set; }
+            public PlayerActorEventsListener PlayerEventListener { get; private set; }
+
+            public PlayerContext(string playerId, string connectionId)
+            {
+                PlayerId = playerId;
+                SignalRConnectionId = connectionId;
+            }
+
+            public async Task Init()
+            {
+                PlayerProxy = ActorProxy.Create<IPlayer>(new ActorId(PlayerId), new Uri("fabric:/TicTacTech/PlayerActorService"));
+                PlayerEventListener = new PlayerActorEventsListener(SignalRConnectionId);
+                await PlayerProxy.SubscribeAsync(PlayerEventListener, TimeSpan.FromSeconds(10));
+            }          
+
+            public void Unsubscribe()
+            {
+                PlayerProxy.UnsubscribeAsync(PlayerEventListener);
+            }
+
         }
+
+        static ConcurrentDictionary<string, PlayerContext> Players = new ConcurrentDictionary<string, PlayerContext>();
 
         static async Task<IPlayer> GetPlayer(string playerId, string signalRConnectionId)
         {
-            Tuple<string, IPlayer, PlayerActorEventsListener> playerStuff;
-            if (s_players.TryGetValue(playerId, out playerStuff))
+            PlayerContext playerContext;
+            if (Players.TryGetValue(playerId, out playerContext))
             {
-                return playerStuff.Item2;
+                if (playerContext.SignalRConnectionId == signalRConnectionId)
+                {
+                    return playerContext.PlayerProxy;
+                }
+                playerContext.Unsubscribe();
             }
-            var playerProxy = GetPlayerProxy(playerId);
-            var playerEventListener = new PlayerActorEventsListener(playerId, signalRConnectionId);
-            await playerProxy.SubscribeAsync(playerEventListener);
-            playerStuff = new Tuple<string, IPlayer, PlayerActorEventsListener>(signalRConnectionId, playerProxy, playerEventListener);
-            s_players[playerId] = playerStuff;
-            return playerProxy;
+            playerContext = new PlayerContext(playerId, signalRConnectionId);
+            await playerContext.Init();
+            Players[playerId] = playerContext;
+            return playerContext.PlayerProxy;
         }
-
-        public override Task OnConnected()
-        {
-            return base.OnConnected();
-        }
-
-        public override Task OnReconnected()
-        {
-            return base.OnReconnected();
-        }
-
-
 
         public async Task LetMePlay(string playerId, string signalRId)
         {

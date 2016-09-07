@@ -3,11 +3,12 @@ import {ServiceApi} from './service-api';
 import {ValidationController, validateTrigger} from 'aurelia-validation';
 import {required, email, ValidationRules} from 'aurelia-validatejs';
 import {EventAggregator} from 'aurelia-event-aggregator';
+import {BusyState} from './../busy-state';
 
-@inject(ServiceApi, NewInstance.of(ValidationController), EventAggregator)
+@inject(ServiceApi, NewInstance.of(ValidationController), EventAggregator, BusyState)
 export class Register {
 
-  constructor(svcApi, valctrl, ea) {
+  constructor(svcApi, valctrl, ea, bs) {
     this.playerId = '';
     this.firstName = '';
     this.lastName = '';
@@ -17,14 +18,14 @@ export class Register {
     this.valctrl = valctrl;
     this.eventAggregator = ea;
     this.serverError = '';
+    this.busyState = bs;
   }
 
   submit() {
-
     this.serverError = '';
     this.valctrl.validate();
     if (this.errors.length === 0) {
-
+      this.busyState.increment();
       this.serviceApi.createPlayer(this.playerId, this.firstName, this.lastName, this.email)
         .then(
         result => {
@@ -35,32 +36,13 @@ export class Register {
             this.serverError = '';
             this.eventAggregator.publish('player/loggedin', JSON.parse(result.response));
           }
+          this.busyState.decrement();
         },
         error => {
           this.serverError = 'Request could not be processed.';
+          this.busyState.decrement();
         });
-
-      // let errors = this.valctrl.validate();
-      // this.serviceApi.createPlayer(this.playerId, this.firstName, this.lastName)
-      //   .then(
-      //   result => { alert(result); },
-      //   error => { alert(error.response); }
-      //   );
-
-
     }
-
-    //   canDeactivate() {
-    //     if (this.fullName !== this.previousValue) {
-    //       return confirm('Are you sure you want to leave?');
-    //     }
-    //   }
-    // }
-
-    // export class UpperValueConverter {
-    //   toView(value) {
-    //     return value && value.toUpperCase();
-    //   }
   }
 }
 

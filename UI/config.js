@@ -256,7 +256,8 @@ System.config({
       "jquery",
       "ms-signalr-client",
       "aurelia-framework",
-      "./../current-player"
+      "./../current-player",
+      "./service-url"
     ],
     "main.js": [
       "bootstrap"
@@ -274,7 +275,8 @@ System.config({
       "./service-api",
       "aurelia-validation",
       "aurelia-validatejs",
-      "aurelia-event-aggregator"
+      "aurelia-event-aggregator",
+      "./../busy-state"
     ],
     "player/router.js": [
       "aurelia-router"
@@ -286,13 +288,14 @@ System.config({
     ],
     "stats/highscore.js": [
       "aurelia-framework",
-      "./service-api"
+      "./service-api",
+      "./../busy-state"
     ],
     "stats/live.js": [
       "aurelia-framework",
       "jquery",
       "ms-signalr-client",
-      "./service-url"
+      "./stats-service-url"
     ],
     "stats/router.js": [
       "aurelia-router"
@@ -300,7 +303,7 @@ System.config({
     "stats/service-api.js": [
       "aurelia-framework",
       "aurelia-http-client",
-      "./service-url"
+      "./stats-service-url"
     ]
   },
   bundles: {
@@ -315,6 +318,7 @@ System.config({
       "game/game.css!github:systemjs/plugin-text@0.0.8.js",
       "game/game.html!github:systemjs/plugin-text@0.0.8.js",
       "game/game.js",
+      "game/service-url.js",
       "main.js",
       "nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
       "player/login.html!github:systemjs/plugin-text@0.0.8.js",
@@ -333,7 +337,7 @@ System.config({
       "stats/router.html!github:systemjs/plugin-text@0.0.8.js",
       "stats/router.js",
       "stats/service-api.js",
-      "stats/service-url.js"
+      "stats/stats-service-url.js"
     ],
     "aurelia.js": [
       "github:github/fetch@1.0.0.js",

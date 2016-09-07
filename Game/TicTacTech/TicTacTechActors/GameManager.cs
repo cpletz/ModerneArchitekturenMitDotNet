@@ -1,12 +1,8 @@
-﻿using Microsoft.ServiceFabric.Actors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using TicTacTechActors.Interfaces;
+using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
+using TicTacTechActors.Interfaces;
 
 namespace TicTacTechActors
 {
@@ -16,7 +12,6 @@ namespace TicTacTechActors
         [DataMember]
         public string Initiator;
     }
-
     
     public class GameManager :
         ActorWithStateObject<GameManagerData>, IGameManager
@@ -34,6 +29,7 @@ namespace TicTacTechActors
             else
             {
                 var initiator = State.Initiator;
+                if (initiator == playerId) return; // do not allow the same player twice
                 State.Initiator = null;
                 SaveState();
                 await Game.CreateNew()
@@ -42,14 +38,11 @@ namespace TicTacTechActors
                         Player.FromId(playerId));
             }
         }
+
         public static IGameManager Instance()
         {
             return ActorProxy.Create<IGameManager>(new ActorId("TicTacTechMgr"));
         }
 
     }
-
-
-
-
 }

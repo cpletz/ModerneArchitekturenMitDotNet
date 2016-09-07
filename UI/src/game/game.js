@@ -5,11 +5,11 @@ import {LogManager} from 'aurelia-framework';
 import {computedFrom} from 'aurelia-framework';
 import {inject} from 'aurelia-framework';
 import {CurrentPlayer} from './../current-player';
+import {ServiceUrl} from './service-url';
 
 const logger = LogManager.getLogger('game');
 
-const gameServiceUri = 'http://tictactech.westeurope.cloudapp.azure.com:8222/';
-// const gameServiceUri = 'http://localhost:8222/';
+const gameServiceUri = ServiceUrl.Url;
 
 @inject(CurrentPlayer)
 export class Game {

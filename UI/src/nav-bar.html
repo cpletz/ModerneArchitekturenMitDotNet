@@ -21,11 +21,8 @@
         </li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" style="margin-right: 4px">
         <li><p class="navbar-text">Signed in as ${router.playerId}</p></li>
-        <li class="loader" if.bind="router.isNavigating || busy.isBusy">
-          <i class="fa fa-spinner fa-spin fa-2x"></i>
-        </li>
       </ul>
     </div>
   </nav>
