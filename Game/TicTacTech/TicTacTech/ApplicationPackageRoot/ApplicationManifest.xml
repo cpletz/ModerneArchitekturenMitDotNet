@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="TicTacTechType" ApplicationTypeVersion="1.1.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="TicTacTechType" ApplicationTypeVersion="1.2.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="TicTacTechPlayer_MinReplicaSetSize" DefaultValue="1" />
     <Parameter Name="TicTacTechPlayer_PartitionCount" DefaultValue="1" />
@@ -16,7 +16,7 @@
     <Parameter Name="PlayerActorService_TargetReplicaSetSize" DefaultValue="2" />
   </Parameters>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="TicTacTechActorsPkg" ServiceManifestVersion="1.1.0" />
+    <ServiceManifestRef ServiceManifestName="TicTacTechActorsPkg" ServiceManifestVersion="1.2.0" />
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="TicTacTechApiPkg" ServiceManifestVersion="1.1.0" />

@@ -1,28 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using P = Player.Models.Player;
-
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
-using System.Web.Http.Cors;
-using Microsoft.ServiceBus.Messaging;
+using System.Web.Http;
 using Microsoft.Azure;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
+using P = Player.Models.Player;
 
 namespace Player.Controllers
 {
-
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PlayerController : ApiController
     {
 
         const string EndpointUri = "https://tictactech.documents.azure.com:443/";
-        const string PrimaryKey = "Wn7GKTZXALWabfQbkEn3KTDqHI6ZIiBjHaSZdPUKe7BREAKQdbxUMbXT1EBLs5LoC0La5EHIWrgNy38pUNm7gA==";
+        const string PrimaryKey = "???";
         const string databaseName = "players";
         const string collectionName = "players";
         static readonly DocumentClient s_docDBClient = new DocumentClient(new Uri(EndpointUri), PrimaryKey);

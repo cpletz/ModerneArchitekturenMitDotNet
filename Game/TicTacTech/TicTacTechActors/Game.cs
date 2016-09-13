@@ -101,8 +101,8 @@ namespace TicTacTechActors
 
             await Task.WhenAll(
                 playerX.EnterGame(this, playerO, "X"),
-                playerO.EnterGame(this, playerX, "O") //,
-                //RegisterReminderAsync("GameTimeout", null, TimeSpan.FromSeconds(15), TimeSpan.FromMilliseconds(-1))
+                playerO.EnterGame(this, playerX, "O"),
+                RegisterReminderAsync("GameTimeout", null, TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(-1))
                 );
 
             playerX.GameStateChanged(State.GameState.board, PlayerGameStatus.MoveRequired);
